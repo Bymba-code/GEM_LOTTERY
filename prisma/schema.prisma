@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model lottery {
+  id                                                       Int                   @id @default(autoincrement())
+  name                                                     String?               @db.VarChar(100)
+  poster                                                   String?               @db.VarChar(255)
+  start_date                                               DateTime?             @db.Timestamp(0)
+  end_date                                                 DateTime?             @db.Timestamp(0)
+  lotterycol                                               String?               @db.VarChar(45)
+  lottery_description_lottery_description_lotteryTolottery lottery_description[] @relation("lottery_description_lotteryTolottery")
+  lottery_users_lottery_users_lotteryTolottery             lottery_users[]       @relation("lottery_users_lotteryTolottery")
+  lottery_winners_lottery_winners_lotteryTolottery         lottery_winners[]     @relation("lottery_winners_lotteryTolottery")
+}
+
+model lottery_description {
+  id                                           Int      @id @default(autoincrement())
+  lottery                                      Int?
+  title                                        String?  @db.VarChar(255)
+  description                                  String?  @db.VarChar(1000)
+  lottery_lottery_description_lotteryTolottery lottery? @relation("lottery_description_lotteryTolottery", fields: [lottery], references: [id], onDelete: Cascade, map: "lottery_description_fk")
+
+  @@index([lottery], map: "lottery_idx")
+}
+
+model lottery_users {
+  id                                     Int      @id @default(autoincrement())
+  user                                   Int?
+  lottery                                Int?
+  image                                  String?  @db.VarChar(255)
+  ebarimt                                String?  @db.VarChar(255)
+  ebarimt_dugaar                         String?  @db.VarChar(255)
+  lottery_lottery_users_lotteryTolottery lottery? @relation("lottery_users_lotteryTolottery", fields: [lottery], references: [id], onDelete: Cascade, map: "lottery_fk")
+  users                                  users?   @relation(fields: [user], references: [id], onDelete: Cascade, map: "user")
+
+  @@index([lottery], map: "lottery_idx")
+  @@index([user], map: "user_idx")
+}
+
+model lottery_winners {
+  id                                       Int      @id @default(autoincrement())
+  lottery                                  Int?
+  user                                     Int?
+  place                                    Int?
+  lottery_lottery_winners_lotteryTolottery lottery? @relation("lottery_winners_lotteryTolottery", fields: [lottery], references: [id], onDelete: Cascade, map: "lottery")
+  users                                    users?   @relation(fields: [user], references: [id], onDelete: Cascade, map: "users")
+
+  @@index([lottery], map: "lottery_idx")
+  @@index([user], map: "users_idx")
+}
+
+model users {
+  id              Int               @id @default(autoincrement())
+  firstname       String?           @db.VarChar(100)
+  lastname        String?           @db.VarChar(100)
+  phone           String?           @db.VarChar(10)
+  email           String?           @db.VarChar(100)
+  password        String?           @db.VarChar(255)
+  date            DateTime?         @db.Timestamp(0)
+  lottery_users   lottery_users[]
+  lottery_winners lottery_winners[]
+}
