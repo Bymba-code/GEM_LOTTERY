@@ -1,4 +1,6 @@
 const express = require("express")
+const path = require('path');
+
 const userRoutes = require("./Routes/1. Auth")
 const lotteryRoutes = require("./Routes/2. Lottery")
 const cors = require("cors")
