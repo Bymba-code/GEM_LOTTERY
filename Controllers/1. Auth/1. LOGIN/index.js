@@ -42,7 +42,6 @@ const LOGIN = async (req, res) => {
             })
         }
 
-        console.log(phone)
 
         const isMatch = await bcrypt.compare(password, user.password)
 
@@ -64,6 +63,7 @@ const LOGIN = async (req, res) => {
         return res.status(200).json({
             success:true,
             data:token,
+            role:user.role,
             message: "Амжилттай нэвтэрлээ."
         })
 
@@ -75,7 +75,7 @@ const LOGIN = async (req, res) => {
         return res.status(500).json({
             success:false,
             data:[],
-            message: "Серверийн алдаа гарлаа."
+            message: "Серверийн алдаа гарлаа." + err
         })
     }
 }
