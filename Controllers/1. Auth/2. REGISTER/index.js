@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt")
 const REGISTER = async (req, res) => {
     try 
     {
-        const {firstName, lastName, phone,email,password} = req.body;
+        const {firstName, lastName, phone,email,password, role} = req.body;
 
         if(!firstName)
         {
@@ -51,6 +51,15 @@ const REGISTER = async (req, res) => {
             })
         }
 
+        if(!role)
+        {
+            return res.status(403).json({
+                success:false,
+                data:[],
+                message: "Хэрэглэгчийн эрхийг оруулна уу"
+            })
+        }
+
         const userCheck = await prisma.users.findMany({
             where:{
                 phone:phone,
@@ -78,6 +87,7 @@ const REGISTER = async (req, res) => {
                 phone:phone,
                 email:email,
                 password:hashedPassword,
+                role:role,
                 date: new Date()
             }
         })
