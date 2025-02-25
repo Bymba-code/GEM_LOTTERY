@@ -1,5 +1,7 @@
 const express = require("express")
 const path = require('path');
+const userLotteryRoutes = require("./Routes/3. Lottery_Users")
+
 
 const userRoutes = require("./Routes/1. Auth")
 const lotteryRoutes = require("./Routes/2. Lottery")
@@ -24,6 +26,7 @@ app.use("/api/v1" , userRoutes)
 
 app.use("/api/v1", lotteryRoutes)
 
+app.use("/api/v1", userLotteryRoutes)
 
 
 
