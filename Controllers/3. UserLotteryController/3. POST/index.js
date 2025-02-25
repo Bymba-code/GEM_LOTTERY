@@ -52,7 +52,8 @@ const INSERT_LOTTERY_USERS = async (req, res) => {
                     lottery:parseInt(lotteryId),
                     image:imageUrl,
                     ebarimt:eBarimImageUrl,
-                    ebarimt_dugaar:ebarimtDugaar
+                    ebarimt_dugaar:ebarimtDugaar,
+                    isCorrect:0
                 }
             });
 
