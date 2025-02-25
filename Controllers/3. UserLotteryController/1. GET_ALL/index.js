@@ -7,6 +7,16 @@ const GET_ALL_LOTTERY_USERS = async (req, res) => {
         const lottries = await prisma.lottery_users.findMany({
             where: {
                 lottery: parseInt(id)
+            },
+            include:{
+                users:{
+                    select:{
+                        firstname:true,
+                        lastname:true,
+                        phone:true,
+                        email:true
+                    }
+                }
             }
         })
         
