@@ -15,6 +15,7 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors(corsOptions));
 
 app.use("/api/v1" , userRoutes)
